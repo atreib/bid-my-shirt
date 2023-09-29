@@ -41,6 +41,9 @@ module.exports = {
     "@typescript-eslint/explicit-function-return-type": "off",
     "@typescript-eslint/consistent-type-definitions": ["error", "type"],
     "@typescript-eslint/no-confusing-void-expression": "off",
+    /* A lot of shadcn-ui functions are triggering this error, so I'm disabling it for now */
+    "@typescript-eslint/no-unsafe-assignment": "off",
+    "@typescript-eslint/no-unsafe-call": "off",
     "@typescript-eslint/naming-convention": [
       "error",
       {
