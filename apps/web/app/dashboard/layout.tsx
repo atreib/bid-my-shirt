@@ -21,7 +21,9 @@ export default function DashboardLayout({
       <main>
         <header className="p-6 bg-secondary text-secondary-foreground flex justify-between items-center">
           <Image alt="logo" height={0} src="/logo.svg" width={75} />
-          <UserButton afterSignOutUrl="/" />
+          <div data-testid="account-button-wrapper">
+            <UserButton afterSignOutUrl="/" />
+          </div>
         </header>
         <section className="p-6 space-y-3">
           <Menu />
