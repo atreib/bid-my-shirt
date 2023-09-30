@@ -1,7 +1,9 @@
+import Link from "next/link";
 import Image from "next/image";
 import { getLandingPageContent } from "cms";
 import { Menu } from "./menu";
-import { Button } from "@/components/ui/button";
+import { buttonVariants } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 
 export default function Page(): JSX.Element {
   const content = getLandingPageContent("homepage");
@@ -10,7 +12,7 @@ export default function Page(): JSX.Element {
       <header className="p-6 bg-primary text-primary-foreground flex justify-between items-center">
         <div>
           {/* TODO: Create a logo */}
-          <Image alt="logo" height={0} src="/vercel.svg" width={75} />
+          <Image alt="logo" height={0} src="/logo.svg" width={75} />
         </div>
 
         <Menu />
@@ -27,9 +29,15 @@ export default function Page(): JSX.Element {
           <p className="text-2xl mb-4 bg-primary text-primary-foreground">
             {content.subtitle}
           </p>
-          <Button className="w-max" size="lg" variant="default">
+          <Link
+            className={cn(
+              buttonVariants({ variant: "default", size: "lg" }),
+              "w-max",
+            )}
+            href="/dashboard"
+          >
             Get started
-          </Button>
+          </Link>
         </div>
       </section>
       <section className="bg-background min-h-[calc(300px+30vh)] p-6 text-foreground">
