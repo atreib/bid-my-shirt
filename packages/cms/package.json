@@ -1,5 +1,5 @@
 {
-  "name": "cms",
+  "name": "@packages/cms",
   "main": "src/index.ts",
   "types": "src/index.ts"
 }

@@ -1,5 +1,5 @@
 {
-  "name": "profile",
+  "name": "@packages/profile",
   "main": "src/index.ts",
   "types": "src/index.ts",
   "scripts": {
