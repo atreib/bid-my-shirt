@@ -1,0 +1,20 @@
+{
+  "version": "5",
+  "dialect": "mysql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "5",
+      "when": 1696121285676,
+      "tag": "0000_magical_war_machine",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "5",
+      "when": 1696123126931,
+      "tag": "0001_married_grandmaster",
+      "breakpoints": true
+    }
+  ]
+}
