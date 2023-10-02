@@ -3,6 +3,15 @@ import type { Metadata } from "next";
 import { getCompanyData } from "cms";
 import { ClerkProvider, UserButton } from "@clerk/nextjs";
 import { Menu } from "./menu";
+import { getAuthUser } from "@/lib/auth-server";
+import { getProfile } from "profile";
+import MeasuresForm from "./measures-form";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 
 const companyData = getCompanyData();
 
@@ -11,11 +20,14 @@ export const metadata: Metadata = {
   description: "Let your shirts do the talking",
 };
 
-export default function DashboardLayout({
+export default async function DashboardLayout({
   children,
 }: {
   children: React.ReactNode;
-}): JSX.Element {
+}) {
+  const user = await getAuthUser();
+  const profile = await getProfile({ userId: user.id });
+
   return (
     <ClerkProvider>
       <main>
@@ -26,6 +38,18 @@ export default function DashboardLayout({
           </div>
         </header>
         <section className="p-6 space-y-3">
+          <div className="bg-secondary px-3 rounded shadow">
+            <Accordion collapsible type="single">
+              <AccordionItem className="border-b-0" value="measures">
+                <AccordionTrigger className="!no-underline text-base text-secondary-foreground font-normal">
+                  Your measures
+                </AccordionTrigger>
+                <AccordionContent>
+                  <MeasuresForm profile={profile} userId={user.id} />
+                </AccordionContent>
+              </AccordionItem>
+            </Accordion>
+          </div>
           <Menu />
           {children}
         </section>

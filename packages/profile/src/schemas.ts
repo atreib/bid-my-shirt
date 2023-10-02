@@ -7,7 +7,7 @@ import {
   double,
 } from "drizzle-orm/mysql-core";
 
-export const profiles = mysqlTable(
+export const profilesTable = mysqlTable(
   "profiles",
   {
     id: bigint("id", { mode: "number" }).primaryKey().autoincrement(),
@@ -25,10 +25,10 @@ export const profiles = mysqlTable(
       "muscular",
     ]),
   },
-  (profilesTable) => ({
-    userIdIndex: uniqueIndex("user_id_idx").on(profilesTable.id),
+  (profiles) => ({
+    userIdIndex: uniqueIndex("user_id_idx").on(profiles.id),
   }),
 );
 
-export type Profile = typeof profiles.$inferSelect;
-export type NewProfile = typeof profiles.$inferInsert;
+export type Profile = typeof profilesTable.$inferSelect;
+export type NewProfile = typeof profilesTable.$inferInsert;

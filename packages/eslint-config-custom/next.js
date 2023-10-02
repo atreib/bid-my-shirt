@@ -37,6 +37,8 @@ module.exports = {
   ignorePatterns: ["node_modules/", "dist/"],
   // add rules configurations here
   rules: {
+    /* Issue with Clerk's get auth user */
+    "@typescript-eslint/no-unsafe-member-access": "off",
     /* Was facing issues with @ alias, so disabled it */
     "import/order": "off",
     "import/no-extraneous-dependencies": [
