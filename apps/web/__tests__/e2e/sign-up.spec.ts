@@ -8,6 +8,8 @@ test("Should sign up and delete account", async ({ page }) => {
 
   /* Sign up */
   await page.getByRole("link", { name: "Sign up" }).click();
+  await page.waitForURL("**/sign-up?**");
+
   await page.getByLabel("Email address").click();
   await page.getByLabel("Email address").fill("jane+clerk_test@example.com");
   await page.getByRole("button", { name: "+55" }).click();
