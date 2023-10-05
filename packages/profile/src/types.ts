@@ -6,6 +6,7 @@ import {
   varchar,
   double,
 } from "drizzle-orm/mysql-core";
+import { createInsertSchema, createSelectSchema } from "drizzle-zod";
 
 export const profilesTable = mysqlTable(
   "profiles",
@@ -30,5 +31,8 @@ export const profilesTable = mysqlTable(
   }),
 );
 
-export type Profile = typeof profilesTable.$inferSelect;
+export const newProfileSchema = createInsertSchema(profilesTable);
 export type NewProfile = typeof profilesTable.$inferInsert;
+
+export const profileSchema = createSelectSchema(profilesTable);
+export type Profile = typeof profilesTable.$inferSelect;

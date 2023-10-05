@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import { getCompanyData } from "cms";
 import { ClerkProvider, UserButton } from "@clerk/nextjs";
 import { Menu } from "./menu";
-import { getAuthUser } from "@/lib/auth-server";
+import { requireUser } from "@/lib/auth-server";
 import { getProfile } from "profile";
 import MeasuresForm from "./measures-form";
 import {
@@ -12,6 +12,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { makeErrorFromDF } from "@/lib/utils";
 
 const companyData = getCompanyData();
 
@@ -25,8 +26,9 @@ export default async function DashboardLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const user = await getAuthUser();
+  const user = await requireUser();
   const profile = await getProfile({ userId: user.id });
+  if (!profile.success) throw makeErrorFromDF(profile);
 
   return (
     <ClerkProvider>
@@ -45,7 +47,7 @@ export default async function DashboardLayout({
                   Your measures
                 </AccordionTrigger>
                 <AccordionContent>
-                  <MeasuresForm profile={profile} userId={user.id} />
+                  <MeasuresForm profile={profile.data} userId={user.id} />
                 </AccordionContent>
               </AccordionItem>
             </Accordion>

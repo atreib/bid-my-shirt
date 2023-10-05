@@ -1,11 +1,11 @@
 import "dotenv/config";
 import type { Config } from "drizzle-kit";
-import { getConnString } from "./src/helpers";
+import { makeDBConnString } from "./src/helpers";
 
-const connectionString = getConnString();
+const connectionString = makeDBConnString();
 
 export default {
-  schema: "./src/schemas.ts",
+  schema: "./src/types.ts",
   out: "./db/migrations",
   driver: "mysql2",
   dbCredentials: { connectionString },
