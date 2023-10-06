@@ -8,6 +8,7 @@ import { MeasuresButtonWithDialog } from "./measures-dialog";
 import { makeErrorFromDF } from "@/lib/utils";
 import { Logo } from "@/components/logo";
 import { Toaster } from "@/components/ui/toaster";
+import Link from "next/link";
 
 const companyData = getCompanyData();
 
@@ -29,8 +30,10 @@ export default async function DashboardLayout({
     <>
       <ClerkProvider>
         <main>
-          <header className="p-6 bg-background text-foreground flex justify-between items-center border-border border-b">
-            <Logo className="text-foreground" />
+          <header className="p-6 md:px-12 bg-background text-foreground flex justify-between items-center border-border border-b">
+            <Link href="/dashboard">
+              <Logo className="text-foreground" />
+            </Link>
             <div className="flex items-center space-x-4">
               <MeasuresButtonWithDialog
                 profile={profile.data}
@@ -41,7 +44,7 @@ export default async function DashboardLayout({
               </div>
             </div>
           </header>
-          <section className="p-6 space-y-3">
+          <section className="p-6 md:p-12 space-y-3">
             <Menu />
             {children}
           </section>

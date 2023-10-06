@@ -9,8 +9,10 @@ export default function Page(): JSX.Element {
   const content = getLandingPageContent("homepage");
   return (
     <main>
-      <header className="p-6 bg-slate-900 text-white flex justify-between items-center">
-        <Logo />
+      <header className="p-6 md:px-12 bg-slate-900 text-white flex justify-between items-center">
+        <Link href="/">
+          <Logo />
+        </Link>
         <Menu />
       </header>
       <section
@@ -20,7 +22,7 @@ export default function Page(): JSX.Element {
           backgroundImage: `url(${content.hero.backgroundURL})`,
         }}
       >
-        <div className="min-h-[calc(300px+30vh)] backdrop-blur-sm p-6 flex flex-col justify-center">
+        <div className="min-h-[calc(300px+30vh)] backdrop-blur-sm p-6 md:px-12 flex flex-col justify-center">
           <h1 className="text-slate-900 mb-4">{content.title}</h1>
           <p className="text-2xl mb-4 bg-slate-900 text-white">
             {content.subtitle}
@@ -36,13 +38,13 @@ export default function Page(): JSX.Element {
           </Link>
         </div>
       </section>
-      <section className="bg-slate-900 min-h-[calc(300px+30vh)] p-6 text-white">
+      <section className="bg-slate-900 min-h-[calc(300px+30vh)] p-6 md:px-12 text-white">
         reasons with app preview
       </section>
-      <section className="bg-slate-700 min-h-[calc(300px+30vh)] p-6 text-white">
+      <section className="bg-slate-700 min-h-[calc(300px+30vh)] p-6 md:px-12 text-white">
         feedback
       </section>
-      <footer className="min-h-[calc(300px+15vh)] p-6 bg-slate-900 text-white">
+      <footer className="min-h-[calc(300px+15vh)] p-6 md:px-12 bg-slate-900 text-white">
         footer
       </footer>
     </main>

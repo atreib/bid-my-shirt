@@ -7,4 +7,8 @@ async function requireUser() {
   return user;
 }
 
-export { requireUser };
+async function getUser() {
+  return currentUser();
+}
+
+export { requireUser, getUser };
