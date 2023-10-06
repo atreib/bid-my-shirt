@@ -11,11 +11,11 @@ const getProfile = mdf(profileSchema.pick({ userId: true }))(async (props) => {
   return users.at(0);
 });
 
-const insertProfile = mdf(newProfileSchema)(async (user) => {
-  return db()
+const upsertProfile = mdf(newProfileSchema)(async (user) => {
+  await db()
     .insert(profilesTable)
     .values(user)
     .onDuplicateKeyUpdate({ set: user });
 });
 
-export { getProfile, insertProfile };
+export { getProfile, upsertProfile };
