@@ -29,8 +29,8 @@ export default async function DashboardLayout({
     <>
       <ClerkProvider>
         <main>
-          <header className="p-6 bg-secondary text-secondary-foreground flex justify-between items-center">
-            <Logo className="text-black" />
+          <header className="p-6 bg-background text-foreground flex justify-between items-center border-border border-b">
+            <Logo className="text-foreground" />
             <div className="flex items-center space-x-4">
               <MeasuresButtonWithDialog
                 profile={profile.data}

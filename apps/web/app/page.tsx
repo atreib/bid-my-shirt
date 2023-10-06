@@ -9,7 +9,7 @@ export default function Page(): JSX.Element {
   const content = getLandingPageContent("homepage");
   return (
     <main>
-      <header className="p-6 bg-primary text-primary-foreground flex justify-between items-center">
+      <header className="p-6 bg-slate-900 text-white flex justify-between items-center">
         <Logo />
         <Menu />
       </header>
@@ -21,8 +21,8 @@ export default function Page(): JSX.Element {
         }}
       >
         <div className="min-h-[calc(300px+30vh)] backdrop-blur-sm p-6 flex flex-col justify-center">
-          <h1 className="text-primary mb-4">{content.title}</h1>
-          <p className="text-2xl mb-4 bg-primary text-primary-foreground">
+          <h1 className="text-slate-900 mb-4">{content.title}</h1>
+          <p className="text-2xl mb-4 bg-slate-900 text-white">
             {content.subtitle}
           </p>
           <Link
@@ -36,13 +36,13 @@ export default function Page(): JSX.Element {
           </Link>
         </div>
       </section>
-      <section className="bg-background min-h-[calc(300px+30vh)] p-6 text-foreground">
+      <section className="bg-slate-900 min-h-[calc(300px+30vh)] p-6 text-white">
         reasons with app preview
       </section>
-      <section className="bg-secondary min-h-[calc(300px+30vh)] p-6 text-secondary-foreground">
+      <section className="bg-slate-700 min-h-[calc(300px+30vh)] p-6 text-white">
         feedback
       </section>
-      <footer className="min-h-[calc(300px+15vh)] p-6 bg-primary text-primary-foreground">
+      <footer className="min-h-[calc(300px+15vh)] p-6 bg-slate-900 text-white">
         footer
       </footer>
     </main>

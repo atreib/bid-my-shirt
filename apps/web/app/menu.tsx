@@ -12,7 +12,7 @@ export function Menu() {
   return (
     <NavigationMenu>
       <NavigationMenuList className="space-x-6">
-        <NavigationMenuItem className="text-primary-foreground">
+        <NavigationMenuItem>
           <Link href="/dashboard">Log in</Link>
         </NavigationMenuItem>
         <NavigationMenuItem>
