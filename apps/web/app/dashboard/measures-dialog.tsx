@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { Ruler } from "lucide-react";
+import { Ruler, CheckCircle } from "lucide-react";
 import {
   Dialog,
   DialogContent,
@@ -15,6 +15,7 @@ import type { Profile } from "profile/src/types";
 import { Button } from "@/components/ui/button";
 import { upserProfileAndRevalidate } from "./server-actions";
 import { experimental_useFormStatus as useFormStatus } from "react-dom";
+import { useToast } from "@/components/ui/use-toast";
 
 export function MeasuresButtonWithDialog({
   profile,
@@ -23,12 +24,11 @@ export function MeasuresButtonWithDialog({
   profile?: Profile;
   userId: Profile["userId"];
 }) {
+  const { toast } = useToast();
   const [isDialogOpen, setIsDialogOpen] = React.useState(false);
   const { pending } = useFormStatus();
 
   async function handleProfileCreation(formData: FormData) {
-    /* TODO: Success toast */
-
     const response = await upserProfileAndRevalidate({
       userId,
       weightInKilos: Number(formData.get("weight")),
@@ -42,6 +42,14 @@ export function MeasuresButtonWithDialog({
     }
 
     setIsDialogOpen(false);
+    toast({
+      description: (
+        <div className="flex space-x-3 items-center justify-start text-foreground/60">
+          <CheckCircle className="" />
+          <p className="font-semibold">Your measures have been saved</p>
+        </div>
+      ),
+    });
   }
 
   return (

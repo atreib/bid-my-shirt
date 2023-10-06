@@ -7,6 +7,7 @@ import { getProfile } from "profile";
 import { MeasuresButtonWithDialog } from "./measures-dialog";
 import { makeErrorFromDF } from "@/lib/utils";
 import { Logo } from "@/components/logo";
+import { Toaster } from "@/components/ui/toaster";
 
 const companyData = getCompanyData();
 
@@ -25,22 +26,28 @@ export default async function DashboardLayout({
   if (!profile.success) throw makeErrorFromDF(profile);
 
   return (
-    <ClerkProvider>
-      <main>
-        <header className="p-6 bg-secondary text-secondary-foreground flex justify-between items-center">
-          <Logo className="text-black" />
-          <div className="flex items-center space-x-4">
-            <MeasuresButtonWithDialog profile={profile.data} userId={user.id} />
-            <div data-testid="account-button-wrapper">
-              <UserButton afterSignOutUrl="/" />
+    <>
+      <ClerkProvider>
+        <main>
+          <header className="p-6 bg-secondary text-secondary-foreground flex justify-between items-center">
+            <Logo className="text-black" />
+            <div className="flex items-center space-x-4">
+              <MeasuresButtonWithDialog
+                profile={profile.data}
+                userId={user.id}
+              />
+              <div data-testid="account-button-wrapper">
+                <UserButton afterSignOutUrl="/" />
+              </div>
             </div>
-          </div>
-        </header>
-        <section className="p-6 space-y-3">
-          <Menu />
-          {children}
-        </section>
-      </main>
-    </ClerkProvider>
+          </header>
+          <section className="p-6 space-y-3">
+            <Menu />
+            {children}
+          </section>
+        </main>
+      </ClerkProvider>
+      <Toaster />
+    </>
   );
 }
