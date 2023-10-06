@@ -1,20 +1,16 @@
 import Link from "next/link";
-import Image from "next/image";
 import { getLandingPageContent } from "cms";
 import { Menu } from "./menu";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { Logo } from "@/components/logo";
 
 export default function Page(): JSX.Element {
   const content = getLandingPageContent("homepage");
   return (
     <main>
       <header className="p-6 bg-primary text-primary-foreground flex justify-between items-center">
-        <div>
-          {/* TODO: Create a logo */}
-          <Image alt="logo" height={0} src="/logo.svg" width={75} />
-        </div>
-
+        <Logo />
         <Menu />
       </header>
       <section

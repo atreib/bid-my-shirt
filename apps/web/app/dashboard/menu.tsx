@@ -12,7 +12,7 @@ export function Menu() {
         href="/shop"
         target="_blank"
       >
-        Shop products
+        Shop
       </Link>
 
       <Link
