@@ -2,11 +2,9 @@
 
 import "dotenv/config";
 import { migrate } from "drizzle-orm/planetscale-serverless/migrator";
-import { getDB } from "../../src/helpers";
+import { db } from "../../src/helpers";
 
-const db = getDB();
-
-migrate(db, { migrationsFolder: "./db/migrations" })
+migrate(db(), { migrationsFolder: "./db/migrations" })
   .then(() => {
     console.log("\n\n🚢 Migration completed successfully.");
   })
