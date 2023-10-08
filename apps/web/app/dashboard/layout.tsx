@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { getCompanyData } from "cms";
 import { ClerkProvider, UserButton } from "@clerk/nextjs";
-import { Menu } from "./menu";
 import { requireUser } from "@/lib/auth-server";
 import { getProfile } from "profile";
 import { MeasuresButtonWithDialog } from "./measures-dialog";
@@ -44,10 +43,7 @@ export default async function DashboardLayout({
               </div>
             </div>
           </header>
-          <section className="p-6 md:p-12 space-y-3">
-            <Menu />
-            {children}
-          </section>
+          <section className="p-6 md:p-12 space-y-3">{children}</section>
         </main>
       </ClerkProvider>
       <Toaster />
