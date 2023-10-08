@@ -13,11 +13,14 @@ export function Menu() {
     <NavigationMenu>
       <NavigationMenuList className="space-x-6">
         <NavigationMenuItem>
+          <Link href="/shop">Shop</Link>
+        </NavigationMenuItem>
+        <NavigationMenuItem>
           <Link href="/dashboard">Log in</Link>
         </NavigationMenuItem>
         <NavigationMenuItem>
           <Link
-            className={buttonVariants({ variant: "secondary" })}
+            className={buttonVariants({ variant: "outline" })}
             href="/dashboard"
           >
             Get started
