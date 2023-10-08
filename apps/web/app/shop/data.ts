@@ -488,6 +488,6 @@ const data = [
       "https://example.com/minimalist-tank-top-pic2.jpg",
     ],
   },
-];
+] as const;
 
 export { data };
