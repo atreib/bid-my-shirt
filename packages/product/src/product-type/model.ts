@@ -24,4 +24,9 @@ const getProductTypeById = mdf(productTypeSchema.pick({ typeId: true }))(
   },
 );
 
-export { upsertProductType, getProductTypeById };
+/* TODO: Test */
+const getProductTypes = mdf()(async () => {
+  return db().select().from(productTypesTable);
+});
+
+export { upsertProductType, getProductTypeById, getProductTypes };

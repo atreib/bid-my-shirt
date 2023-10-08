@@ -7,6 +7,16 @@ import {
   productsToTypesRelSchema,
 } from "../types";
 
+/* TODO: Test */
+const getTypesByProductId = mdf(
+  productsToTypesRelSchema.pick({ productId: true }),
+)(async ({ productId }) => {
+  return db()
+    .select()
+    .from(productsToTypesTable)
+    .where(eq(productsToTypesTable.productId, productId));
+});
+
 const addTypeToProduct = mdf(newProductsToTypesRelSchema)(async (rel) => {
   await db().insert(productsToTypesTable).values(rel);
 });
@@ -24,4 +34,4 @@ const removeTypeFromProduct = mdf(
   return db().delete(productsToTypesTable).where(condition);
 });
 
-export { addTypeToProduct, removeTypeFromProduct };
+export { addTypeToProduct, removeTypeFromProduct, getTypesByProductId };

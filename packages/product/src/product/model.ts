@@ -32,4 +32,20 @@ const deleteProductById = mdf(productSchema.pick({ productId: true }))(async ({
     .where(eq(productsTable.productId, productId));
 });
 
-export { upsertProduct, getProductById, getProducts, deleteProductById };
+/* TODO: Test */
+const getProductsByOwner = mdf(productSchema.pick({ ownerId: true }))(async ({
+  ownerId,
+}) => {
+  return db()
+    .select()
+    .from(productsTable)
+    .where(eq(productsTable.ownerId, ownerId));
+});
+
+export {
+  upsertProduct,
+  getProductById,
+  getProducts,
+  deleteProductById,
+  getProductsByOwner,
+};
