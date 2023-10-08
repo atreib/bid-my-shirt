@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { Ruler, CheckCircle } from "lucide-react";
+import { RulerIcon, CheckCircleIcon, Loader2Icon } from "lucide-react";
 import {
   Dialog,
   DialogContent,
@@ -14,7 +14,6 @@ import {
 import type { Profile } from "profile/src/types";
 import { Button } from "@/components/ui/button";
 import { upserProfileAndRevalidate } from "./server-actions";
-import { experimental_useFormStatus as useFormStatus } from "react-dom";
 import { useToast } from "@/components/ui/use-toast";
 
 export function MeasuresButtonWithDialog({
@@ -26,7 +25,7 @@ export function MeasuresButtonWithDialog({
 }) {
   const { toast } = useToast();
   const [isDialogOpen, setIsDialogOpen] = React.useState(false);
-  const { pending } = useFormStatus();
+  const [isFormLoading, setIsFormLoading] = React.useState(false);
 
   async function handleProfileCreation(formData: FormData) {
     const response = await upserProfileAndRevalidate({
@@ -35,6 +34,8 @@ export function MeasuresButtonWithDialog({
       heightInCentimeters: Number(formData.get("height")),
       bodyType: formData.get("bodyType"),
     });
+
+    setIsFormLoading(false);
 
     if (!response.success) {
       /* TODO: Handle errors */
@@ -45,7 +46,7 @@ export function MeasuresButtonWithDialog({
     toast({
       description: (
         <div className="flex space-x-3 items-center justify-start text-foreground/60">
-          <CheckCircle className="" />
+          <CheckCircleIcon />
           <p className="font-semibold">Your measures have been saved</p>
         </div>
       ),
@@ -59,7 +60,7 @@ export function MeasuresButtonWithDialog({
     >
       <DialogTrigger asChild>
         <Button size="icon" variant="ghost">
-          <Ruler className="text-primary" />
+          <RulerIcon className="text-primary" />
         </Button>
       </DialogTrigger>
       <DialogContent className="max-w-[80%] md:max-w-md">
@@ -68,6 +69,7 @@ export function MeasuresButtonWithDialog({
           action={handleProfileCreation}
           className="space-y-3"
           id="measures-form"
+          onSubmit={() => setIsFormLoading(true)}
         >
           <DialogHeader>
             <DialogTitle className="text-left">Your measures</DialogTitle>
@@ -104,14 +106,18 @@ export function MeasuresButtonWithDialog({
           </div>
           <DialogFooter className="flex items-end pt-6">
             <Button
-              aria-disabled={pending}
+              aria-disabled={isFormLoading}
               className="w-max"
-              disabled={pending}
+              disabled={isFormLoading}
               form="measures-form"
               type="submit"
               variant="outline"
             >
-              {pending ? "Loading..." : "Save your measures"}
+              {isFormLoading ? (
+                <Loader2Icon className="animate-spin h-6 w-6" />
+              ) : (
+                "Save your measures"
+              )}
             </Button>
           </DialogFooter>
         </form>
