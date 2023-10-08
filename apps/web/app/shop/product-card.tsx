@@ -15,12 +15,14 @@ import type { data } from "./data";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { OwnerMeasuresButtonWithDialog } from "./owner-measures-dialog";
+import type { User } from "@clerk/backend";
 
 type Props = {
   product: (typeof data)[number];
+  user: User | null;
 };
 
-function ProductCard({ product }: Props) {
+function ProductCard({ product, user }: Props) {
   return (
     <Card className="flex flex-col justify-between">
       <CardHeader>
@@ -37,14 +39,17 @@ function ProductCard({ product }: Props) {
         <aside className="mb-3">
           <CardDescription className="flex flex-row space-x-1 justify-end text-foreground">
             <OwnerMeasuresButtonWithDialog measures={product.owner} />
-            <Button size="icon" variant="ghost">
-              <HeartIcon
-                className={cn(
-                  "h-6 w-6",
-                  product.liked === "yes" && "fill-foreground text-foreground",
-                )}
-              />
-            </Button>
+            {user ? (
+              <Button size="icon" variant="ghost">
+                <HeartIcon
+                  className={cn(
+                    "h-6 w-6",
+                    product.liked === "yes" &&
+                      "fill-foreground text-foreground",
+                  )}
+                />
+              </Button>
+            ) : null}
           </CardDescription>
         </aside>
         <AspectRatio ratio={16 / 9}>

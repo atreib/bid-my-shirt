@@ -1,16 +1,14 @@
 import Image from "next/image";
-import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
-import { Button, buttonVariants } from "@/components/ui/button";
-import { HeartIcon, Undo2Icon } from "lucide-react";
-import { cn } from "@/lib/utils";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
-import { bid, findProductById } from "./server-actions";
+import { findProductById } from "./server-actions";
 import { redirect } from "next/navigation";
-import { OwnerMeasuresButtonWithDialog } from "../owner-measures-dialog";
-import { requireUser } from "@/lib/auth-server";
-import { SubmitButton } from "./form-submit-button";
-import type { data } from "../data";
+import { getUser } from "@/lib/auth-server";
+import { Bid } from "./bid";
+import { Nav } from "./nav";
+import { cn } from "@/lib/utils";
+import { buttonVariants } from "@/components/ui/button";
+import Link from "next/link";
 
 /* TODO: Success feedback */
 /* TODO: Error handling */
@@ -21,58 +19,15 @@ type Props = {
   };
 };
 
-function Nav(props: {
-  layout: "mobile" | "desktop";
-  product: (typeof data)[number];
-}) {
-  return (
-    <nav
-      className={cn(
-        props.layout === "mobile" ? "flex lg:hidden" : "hidden lg:flex",
-        "justify-between mb-3",
-      )}
-    >
-      <Link
-        className={cn(buttonVariants({ size: "icon", variant: "ghost" }))}
-        href="/shop"
-      >
-        <Undo2Icon className="h-6 w-6" />
-      </Link>
-      <aside className="flex justify-end">
-        <OwnerMeasuresButtonWithDialog measures={props.product.owner} />
-        <Button size="icon" variant="ghost">
-          <HeartIcon
-            className={cn(
-              "h-6 w-6",
-              props.product.liked === "yes" &&
-                "fill-foreground text-foreground",
-            )}
-          />
-        </Button>
-      </aside>
-    </nav>
-  );
-}
-
 export default async function Page({ params }: Props) {
-  const user = await requireUser();
+  const user = await getUser();
   const product = findProductById(params.productId);
   if (!product) redirect("/shop");
 
-  async function handleBid(formData: FormData) {
-    "use server";
-
-    await bid({
-      userId: user.id,
-      productId: params.productId,
-      bid: Number(formData.get("bid")),
-    });
-  }
-
   return (
-    <div className="lg:flex lg:space-x-6">
-      <main className="mb-6 lg:max-w-md lg:border lg:border-border lg:p-6 lg:rounded lg:mb-0">
-        <Nav layout="mobile" product={product} />
+    <div className="lg:flex lg:space-x-12">
+      <main className="mb-6 grow lg:max-w-lg lg:border lg:border-border lg:p-6 lg:rounded lg:mb-0">
+        <Nav layout="mobile" product={product} user={user} />
         <section className="mb-3">
           <AspectRatio ratio={16 / 9}>
             <Image
@@ -100,25 +55,23 @@ export default async function Page({ params }: Props) {
         </section>
       </main>
       <section className="grow">
-        <Nav layout="desktop" product={product} />
-        <header>
-          <h2>Hey, make a bid!</h2>
-          <p className=" my-3">
-            Send to the owner how much you would pay for his product. Give him
-            your best shot!
-          </p>
-        </header>
-        {/* eslint-disable-next-line @typescript-eslint/no-misused-promises -- ServerActions vs ESLint */}
-        <form action={handleBid}>
-          <label className="text-sm text-muted-foreground" htmlFor="bid">
-            Fill your bid below:
-          </label>
-          <div className="flex items-center space-x-3 my-1">
-            <h3>$</h3>
-            <input className="lg:max-w-xs" id="bid" name="bid" type="number" />
-            <SubmitButton>Bid</SubmitButton>
-          </div>
-        </form>
+        <Nav layout="desktop" product={product} user={user} />
+        {user ? <Bid productId={params.productId} user={user} /> : null}
+
+        <article className="dark text-center p-6 rounded-lg bg-background text-foreground space-y-6 py-12">
+          <h1 className="">Do you like what you see? 😮‍💨</h1>
+          <h2 className="">Sign up now and place your bid!</h2>
+          <h3 className="">It won&apos;t take a minute </h3>
+          <Link
+            className={cn(
+              buttonVariants({ size: "lg", variant: "default" }),
+              "my-6",
+            )}
+            href="/dashboard"
+          >
+            Get started
+          </Link>
+        </article>
       </section>
     </div>
   );

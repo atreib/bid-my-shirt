@@ -25,19 +25,19 @@ export default async function ShopLayout({
           <Link href="/shop">
             <Logo className="text-foreground" />
           </Link>
-          <div className="flex items-center space-x-4">
-            <div data-testid="account-button-wrapper">
-              {user ? (
+          <div className="flex items-center space-x-2">
+            <Link
+              className={buttonVariants({ variant: "link" })}
+              href="/dashboard"
+            >
+              {user ? "Go to dashboard" : "Log in"}
+            </Link>
+
+            {user ? (
+              <div data-testid="account-button-wrapper">
                 <UserButton afterSignOutUrl="/" />
-              ) : (
-                <Link
-                  className={buttonVariants({ variant: "outline" })}
-                  href="/dashboard"
-                >
-                  Log in
-                </Link>
-              )}
-            </div>
+              </div>
+            ) : null}
           </div>
         </header>
         <section className="p-6 md:p-12">{children}</section>

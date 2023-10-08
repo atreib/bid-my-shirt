@@ -1,22 +1,21 @@
-import { Button } from "@/components/ui/button";
-import { FilterIcon } from "lucide-react";
 import { ProductCard } from "./product-card";
 import { data } from "./data";
+import { getUser } from "@/lib/auth-server";
 
 /* TODO: Server-side pagination (save state on url) */
 /* TODO: Server-side filter (save state on url) */
 
-export default function Page() {
+export default async function Page() {
+  const user = await getUser();
+
   return (
     <main>
-      <nav className="flex justify-end items-center mb-6">
-        <Button size="icon" variant="link">
-          <FilterIcon className="h-8 w-8 text-muted-foreground" />
-        </Button>
-      </nav>
-      <section className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
+      <header className="mb-3 lg:mb-6">
+        <h1>Shop</h1>
+      </header>
+      <section className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-12">
         {data.map((product) => (
-          <ProductCard key={product.productId} product={product} />
+          <ProductCard key={product.productId} product={product} user={user} />
         ))}
       </section>
     </main>
