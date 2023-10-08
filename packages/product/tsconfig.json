@@ -1,0 +1,12 @@
+{
+  "extends": "tsconfig/base.json",
+  "compilerOptions": {
+    "paths": {
+      "@/*": ["./*"]
+    },
+    "module": "es2022",
+    "target": "es2022"
+  },
+  "include": ["**/*.ts"],
+  "exclude": ["node_modules"]
+}
