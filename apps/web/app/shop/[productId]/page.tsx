@@ -58,20 +58,22 @@ export default async function Page({ params }: Props) {
         <Nav layout="desktop" product={product} user={user} />
         {user ? <Bid productId={params.productId} user={user} /> : null}
 
-        <article className="dark text-center p-6 rounded-lg bg-background text-foreground space-y-6 py-12">
-          <h1 className="">Do you like what you see? 😮‍💨</h1>
-          <h2 className="">Sign up now and place your bid!</h2>
-          <h3 className="">It won&apos;t take a minute </h3>
-          <Link
-            className={cn(
-              buttonVariants({ size: "lg", variant: "default" }),
-              "my-6",
-            )}
-            href="/dashboard"
-          >
-            Get started
-          </Link>
-        </article>
+        {!user ? (
+          <article className="dark text-center p-6 rounded-lg bg-background text-foreground space-y-6 py-12">
+            <h1 className="">Do you like what you see? 😮‍💨</h1>
+            <h2 className="">Sign up now and place your bid!</h2>
+            <h3 className="">It won&apos;t take a minute </h3>
+            <Link
+              className={cn(
+                buttonVariants({ size: "lg", variant: "default" }),
+                "my-6",
+              )}
+              href="/dashboard"
+            >
+              Get started
+            </Link>
+          </article>
+        ) : null}
       </section>
     </div>
   );
