@@ -3,6 +3,9 @@ import { FilterIcon } from "lucide-react";
 import { ProductCard } from "./product-card";
 import { data } from "./data";
 
+/* TODO: Server-side pagination (save state on url) */
+/* TODO: Server-side filter (save state on url) */
+
 export default function Page() {
   return (
     <main>

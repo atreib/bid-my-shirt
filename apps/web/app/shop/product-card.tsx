@@ -1,12 +1,7 @@
 import Image from "next/image";
-import {
-  ShirtIcon,
-  HeartIcon,
-  ShoppingCartIcon,
-  RulerIcon,
-} from "lucide-react";
+import { ShirtIcon, HeartIcon } from "lucide-react";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
-import { Button } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import {
   Card,
@@ -18,6 +13,8 @@ import {
 } from "@/components/ui/card";
 import type { data } from "./data";
 import { cn } from "@/lib/utils";
+import Link from "next/link";
+import { OwnerMeasuresButtonWithDialog } from "./owner-measures-dialog";
 
 type Props = {
   product: (typeof data)[number];
@@ -38,10 +35,8 @@ function ProductCard({ product }: Props) {
       </CardHeader>
       <CardContent>
         <aside className="mb-3">
-          <CardDescription className="flex flex-row space-x-1 justify-end">
-            <Button size="icon" variant="ghost">
-              <RulerIcon className="h-6 w-6" />
-            </Button>
+          <CardDescription className="flex flex-row space-x-1 justify-end text-foreground">
+            <OwnerMeasuresButtonWithDialog measures={product.owner} />
             <Button size="icon" variant="ghost">
               <HeartIcon
                 className={cn(
@@ -49,9 +44,6 @@ function ProductCard({ product }: Props) {
                   product.liked === "yes" && "fill-foreground text-foreground",
                 )}
               />
-            </Button>
-            <Button size="icon" variant="ghost">
-              <ShoppingCartIcon className="h-6 w-6" />
             </Button>
           </CardDescription>
         </aside>
@@ -68,9 +60,12 @@ function ProductCard({ product }: Props) {
         </AspectRatio>
       </CardContent>
       <CardFooter className="text-left">
-        <Button className="w-full">
+        <Link
+          className={cn(buttonVariants({ variant: "default" }), "w-full")}
+          href={`/shop/${product.productId}`}
+        >
           <ShirtIcon className="mr-2 h-4 w-4" /> Check it out
-        </Button>
+        </Link>
       </CardFooter>
     </Card>
   );
